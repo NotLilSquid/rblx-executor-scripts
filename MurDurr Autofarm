@@ -1,0 +1,210 @@
+-- Configuration & Variables
+local targetPos = Vector3.new(135, 94.5, -67)
+local tpEnabled = false
+local tpInterval = 0.5 
+local running = true 
+local decalID = "rbxassetid://83708157553598" 
+
+-- Create UI Container
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "MurDurrGui"
+ScreenGui.Parent = game:GetService("CoreGui") 
+ScreenGui.ResetOnSpawn = false
+
+-- Main Frame (Transparency 0.5)
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+MainFrame.BackgroundTransparency = 0.5 
+MainFrame.BorderSizePixel = 2
+MainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
+MainFrame.Size = UDim2.new(0, 350, 0, 250)
+MainFrame.Active = true
+MainFrame.Draggable = true 
+
+-- 1. HEADER (Transparency 0.5)
+local Header = Instance.new("TextLabel")
+Header.Parent = MainFrame
+Header.Size = UDim2.new(1, 0, 0, 45)
+Header.BackgroundColor3 = Color3.fromRGB(100, 100, 0)
+Header.BackgroundTransparency = 0.5 
+Header.BorderSizePixel = 2
+Header.Text = "MurDurr Autofarm Script"
+Header.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+Header.Font = Enum.Font.SourceSansBold
+Header.TextSize = 24
+
+-- 2. CONTROL ROW (Buttons Transparency 0.5)
+local ControlRow = Instance.new("Frame")
+ControlRow.Parent = MainFrame
+ControlRow.Position = UDim2.new(0, 0, 0, 45)
+ControlRow.Size = UDim2.new(1, 0, 0, 40)
+ControlRow.BackgroundTransparency = 1 
+
+local MinBtn = Instance.new("TextButton")
+MinBtn.Parent = ControlRow
+MinBtn.Size = UDim2.new(0.5, 0, 1, 0)
+MinBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 10)
+MinBtn.BackgroundTransparency = 0.5 
+MinBtn.BorderSizePixel = 2
+MinBtn.Text = "Minimize"
+MinBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+MinBtn.Font = Enum.Font.SourceSansBold
+MinBtn.TextSize = 20
+
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Parent = ControlRow
+CloseBtn.Position = UDim2.new(0.5, 0, 0, 0)
+CloseBtn.Size = UDim2.new(0.5, 0, 1, 0)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 10)
+CloseBtn.BackgroundTransparency = 0.5 
+CloseBtn.BorderSizePixel = 2
+CloseBtn.Text = "Destroy"
+CloseBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+CloseBtn.Font = Enum.Font.SourceSansBold
+CloseBtn.TextSize = 20
+
+-- 3. BOTTOM SECTION
+local BottomSection = Instance.new("Frame")
+BottomSection.Parent = MainFrame
+BottomSection.Position = UDim2.new(0, 0, 0, 85)
+BottomSection.Size = UDim2.new(1, 0, 1, -85)
+BottomSection.BackgroundTransparency = 1 
+
+-- TP Button (Transparency 0.5)
+local ToggleBtn = Instance.new("TextButton")
+ToggleBtn.Parent = BottomSection
+ToggleBtn.Position = UDim2.new(0.05, 0, 0.05, 0)
+ToggleBtn.Size = UDim2.new(0.4, 0, 0.45, 0)
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+ToggleBtn.BackgroundTransparency = 0.5 
+ToggleBtn.BorderSizePixel = 2
+ToggleBtn.Text = "TP: OFF"
+ToggleBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+ToggleBtn.Font = Enum.Font.SourceSansBold
+ToggleBtn.TextSize = 22
+
+-- Interval Label (Opaque Text)
+local IntLabel = Instance.new("TextLabel")
+IntLabel.Parent = BottomSection
+IntLabel.Position = UDim2.new(0.05, 0, 0.6, 0)
+IntLabel.Size = UDim2.new(0.2, 0, 0.3, 0)
+IntLabel.BackgroundTransparency = 1
+IntLabel.Text = "Interval:\n( 0.1 - 10 )"
+IntLabel.TextColor3 = Color3.new(1, 1, 1)
+IntLabel.Font = Enum.Font.SourceSansBold
+IntLabel.TextSize = 16
+
+-- Interval Input Box (Transparency 0.5)
+local SpeedBox = Instance.new("TextBox")
+SpeedBox.Parent = BottomSection
+SpeedBox.Position = UDim2.new(0.27, 0, 0.6, 0)
+SpeedBox.Size = UDim2.new(0.18, 0, 0.35, 0)
+SpeedBox.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+SpeedBox.BackgroundTransparency = 0.5 
+SpeedBox.BorderSizePixel = 2
+SpeedBox.Text = "0.5s"
+SpeedBox.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+SpeedBox.Font = Enum.Font.SourceSansBold
+SpeedBox.TextSize = 18
+
+-- Image Box (ImageTransparency 0.66)
+local RightCol = Instance.new("ImageLabel")
+RightCol.Parent = BottomSection
+RightCol.Position = UDim2.new(0.5, 5, 0.05, 0)
+RightCol.Size = UDim2.new(0.45, 0, 0.75, 0)
+RightCol.BackgroundTransparency = 1 
+RightCol.BorderSizePixel = 0 
+RightCol.Image = decalID
+RightCol.ImageTransparency = 0.66
+RightCol.ScaleType = Enum.ScaleType.Fit
+
+-- Credit Text (Opaque Text)
+local CreditText = Instance.new("TextLabel")
+CreditText.Parent = BottomSection
+CreditText.Position = UDim2.new(0.5, 5, 0.8, 0)
+CreditText.Size = UDim2.new(0.45, 0, 0, 20)
+CreditText.BackgroundTransparency = 1
+CreditText.Text = "(Made with Gemini AI)"
+CreditText.TextColor3 = Color3.fromRGB(200, 200, 200)
+CreditText.Font = Enum.Font.SourceSansItalic
+CreditText.TextSize = 14
+
+-- Instruction Text (Opaque Pink Text)
+local InstructionText = Instance.new("TextLabel")
+InstructionText.Parent = MainFrame
+InstructionText.Position = UDim2.new(0, 0, 1, 5)
+InstructionText.Size = UDim2.new(1, 0, 0, 20)
+InstructionText.BackgroundTransparency = 1
+InstructionText.Text = "(teleports you only at the end of the pink obby)"
+InstructionText.TextColor3 = Color3.fromRGB(255, 105, 180)
+InstructionText.Font = Enum.Font.SourceSansBold
+InstructionText.TextSize = 16
+
+-- FLOATING MINIMIZE ICON (Background Opaque per previous instruction)
+local MinimizedBtn = Instance.new("ImageButton")
+MinimizedBtn.Parent = ScreenGui
+MinimizedBtn.Visible = false
+MinimizedBtn.Size = UDim2.new(0, 60, 0, 60)
+MinimizedBtn.Position = UDim2.new(0, 50, 0, 50)
+MinimizedBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 0)
+MinimizedBtn.BackgroundTransparency = 0 -- Fully Opaque
+MinimizedBtn.Image = decalID
+MinimizedBtn.ImageTransparency = 0 -- Fully Opaque
+MinimizedBtn.Draggable = true
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(1, 0)
+Corner.Parent = MinimizedBtn
+
+--- UI LOGIC ---
+
+CloseBtn.MouseButton1Click:Connect(function()
+    running = false 
+    ScreenGui:Destroy() 
+end)
+
+MinBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    MinimizedBtn.Visible = true
+end)
+
+MinimizedBtn.MouseButton1Click:Connect(function()
+    MinimizedBtn.Visible = false
+    MainFrame.Visible = true
+end)
+
+ToggleBtn.MouseButton1Click:Connect(function()
+    tpEnabled = not tpEnabled
+    if tpEnabled then
+        ToggleBtn.Text = "TP: ON"
+        -- Keep Green Opaque but Background 0.5
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(40, 180, 70)
+    else
+        ToggleBtn.Text = "TP: OFF"
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    end
+end)
+
+SpeedBox.FocusLost:Connect(function()
+    local val = tonumber(SpeedBox.Text:match("%d+%.?%d*"))
+    if val then
+        tpInterval = math.clamp(val, 0.1, 10) 
+        SpeedBox.Text = tostring(tpInterval) .. "s"
+    else
+        SpeedBox.Text = tostring(tpInterval) .. "s"
+    end
+end)
+
+--- TP LOOP ---
+task.spawn(function()
+    while running do
+        if tpEnabled then
+            local p = game.Players.LocalPlayer
+            if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                p.Character.HumanoidRootPart.CFrame = CFrame.new(targetPos)
+            end
+        end
+        task.wait(tpInterval)
+    end
+end)
