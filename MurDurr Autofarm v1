@@ -1,5 +1,5 @@
 -- Configuration & Variables
-local targetPos = Vector3.new(135, 94.5, -67)
+local targetPos = Vector3.new(135, 102.5, -67)
 local tpEnabled = false
 local tpInterval = 0.5 
 local running = true 
@@ -141,6 +141,17 @@ InstructionText.Text = "(teleports you only at the end of the pink obby)"
 InstructionText.TextColor3 = Color3.fromRGB(255, 105, 180)
 InstructionText.Font = Enum.Font.SourceSansBold
 InstructionText.TextSize = 16
+
+-- Instruction Text (Opaque Pink Text)
+local InstructionText = Instance.new("TextLabel")
+InstructionText.Parent = MainFrame
+InstructionText.Position = UDim2.new(0, 0, 1, 5.25)
+InstructionText.Size = UDim2.new(1, 0, 0, 20)
+InstructionText.BackgroundTransparency = 1
+InstructionText.Text = "(I probably recommend putting interval between 0.5 and 10)"
+InstructionText.TextColor3 = Color3.fromRGB(127, 105, 180)
+InstructionText.Font = Enum.Font.SourceSansBold
+InstructionText.TextSize = 12
 
 -- FLOATING MINIMIZE ICON (Background Opaque per previous instruction)
 local MinimizedBtn = Instance.new("ImageButton")
