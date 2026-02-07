@@ -1,7 +1,7 @@
 -- Configuration & Variables
-local targetPos = Vector3.new(135, 102.5, -67)
+local targetPos = Vector3.new(135, 107.5, -67)
 local tpEnabled = false
-local tpInterval = 0.5 
+local tpInterval = 0.5
 local running = true 
 local decalID = "rbxassetid://83708157553598" 
 
@@ -31,7 +31,7 @@ Header.BackgroundColor3 = Color3.fromRGB(100, 100, 0)
 Header.BackgroundTransparency = 0.5 
 Header.BorderSizePixel = 2
 Header.Text = "MurDurr Autofarm Script"
-Header.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+Header.TextColor3 = Color3.new(1, 1, 1)
 Header.Font = Enum.Font.SourceSansBold
 Header.TextSize = 24
 
@@ -49,7 +49,7 @@ MinBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 10)
 MinBtn.BackgroundTransparency = 0.5 
 MinBtn.BorderSizePixel = 2
 MinBtn.Text = "Minimize"
-MinBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+MinBtn.TextColor3 = Color3.new(1, 1, 1)
 MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
 
@@ -61,7 +61,7 @@ CloseBtn.BackgroundColor3 = Color3.fromRGB(60, 30, 10)
 CloseBtn.BackgroundTransparency = 0.5 
 CloseBtn.BorderSizePixel = 2
 CloseBtn.Text = "Destroy"
-CloseBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+CloseBtn.TextColor3 = Color3.new(1, 1, 1)
 CloseBtn.Font = Enum.Font.SourceSansBold
 CloseBtn.TextSize = 20
 
@@ -76,38 +76,50 @@ BottomSection.BackgroundTransparency = 1
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Parent = BottomSection
 ToggleBtn.Position = UDim2.new(0.05, 0, 0.05, 0)
-ToggleBtn.Size = UDim2.new(0.4, 0, 0.45, 0)
+ToggleBtn.Size = UDim2.new(0.4, 0, 0.4)
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 ToggleBtn.BackgroundTransparency = 0.5 
 ToggleBtn.BorderSizePixel = 2
 ToggleBtn.Text = "TP: OFF"
-ToggleBtn.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+ToggleBtn.TextColor3 = Color3.new(1, 1, 1)
 ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 22
 
--- Interval Label (Opaque Text)
+-- Interval Label
 local IntLabel = Instance.new("TextLabel")
 IntLabel.Parent = BottomSection
-IntLabel.Position = UDim2.new(0.05, 0, 0.6, 0)
-IntLabel.Size = UDim2.new(0.2, 0, 0.3, 0)
+IntLabel.Position = UDim2.new(0.05, 0, 0.5, 0)
+IntLabel.Size = UDim2.new(0.2, 0, 0.2, 0)
 IntLabel.BackgroundTransparency = 1
 IntLabel.Text = "Interval:\n( 0.1 - 10 )"
 IntLabel.TextColor3 = Color3.new(1, 1, 1)
 IntLabel.Font = Enum.Font.SourceSansBold
-IntLabel.TextSize = 16
+IntLabel.TextSize = 14
 
 -- Interval Input Box (Transparency 0.5)
 local SpeedBox = Instance.new("TextBox")
 SpeedBox.Parent = BottomSection
-SpeedBox.Position = UDim2.new(0.27, 0, 0.6, 0)
-SpeedBox.Size = UDim2.new(0.18, 0, 0.35, 0)
+SpeedBox.Position = UDim2.new(0.27, 0, 0.5, 0)
+SpeedBox.Size = UDim2.new(0.18, 0, 0.25, 0)
 SpeedBox.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 SpeedBox.BackgroundTransparency = 0.5 
 SpeedBox.BorderSizePixel = 2
 SpeedBox.Text = "0.5s"
-SpeedBox.TextColor3 = Color3.new(1, 1, 1) -- Opaque Text
+SpeedBox.TextColor3 = Color3.new(1, 1, 1)
 SpeedBox.Font = Enum.Font.SourceSansBold
 SpeedBox.TextSize = 18
+
+-- RECOMMENDATION TEXT (New)
+local RecLabel = Instance.new("TextLabel")
+RecLabel.Parent = BottomSection
+RecLabel.Position = UDim2.new(0.05, 0, 0.8, 0)
+RecLabel.Size = UDim2.new(0.4, 0, 0, 30)
+RecLabel.BackgroundTransparency = 1
+RecLabel.Text = "i probably recommend putting the interval between 1s and 10s"
+RecLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+RecLabel.Font = Enum.Font.SourceSansBold
+RecLabel.TextSize = 11
+RecLabel.TextWrapped = true
 
 -- Image Box (ImageTransparency 0.66)
 local RightCol = Instance.new("ImageLabel")
@@ -131,7 +143,7 @@ CreditText.TextColor3 = Color3.fromRGB(200, 200, 200)
 CreditText.Font = Enum.Font.SourceSansItalic
 CreditText.TextSize = 14
 
--- Instruction Text (Opaque Pink Text)
+-- Instruction Text (Pink Opaque Text)
 local InstructionText = Instance.new("TextLabel")
 InstructionText.Parent = MainFrame
 InstructionText.Position = UDim2.new(0, 0, 1, 5)
@@ -142,27 +154,16 @@ InstructionText.TextColor3 = Color3.fromRGB(255, 105, 180)
 InstructionText.Font = Enum.Font.SourceSansBold
 InstructionText.TextSize = 16
 
--- Instruction Text (Opaque Pink Text)
-local InstructionText = Instance.new("TextLabel")
-InstructionText.Parent = MainFrame
-InstructionText.Position = UDim2.new(0, 0, 1, 5.25)
-InstructionText.Size = UDim2.new(1, 0, 0, 20)
-InstructionText.BackgroundTransparency = 1
-InstructionText.Text = "(I probably recommend putting interval between 0.5 and 10)"
-InstructionText.TextColor3 = Color3.fromRGB(127, 105, 180)
-InstructionText.Font = Enum.Font.SourceSansBold
-InstructionText.TextSize = 12
-
--- FLOATING MINIMIZE ICON (Background Opaque per previous instruction)
+-- FLOATING MINIMIZE ICON (Fully Opaque)
 local MinimizedBtn = Instance.new("ImageButton")
 MinimizedBtn.Parent = ScreenGui
 MinimizedBtn.Visible = false
 MinimizedBtn.Size = UDim2.new(0, 60, 0, 60)
 MinimizedBtn.Position = UDim2.new(0, 50, 0, 50)
 MinimizedBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 0)
-MinimizedBtn.BackgroundTransparency = 0 -- Fully Opaque
+MinimizedBtn.BackgroundTransparency = 0
 MinimizedBtn.Image = decalID
-MinimizedBtn.ImageTransparency = 0 -- Fully Opaque
+MinimizedBtn.ImageTransparency = 0
 MinimizedBtn.Draggable = true
 local Corner = Instance.new("UICorner")
 Corner.CornerRadius = UDim.new(1, 0)
@@ -189,7 +190,6 @@ ToggleBtn.MouseButton1Click:Connect(function()
     tpEnabled = not tpEnabled
     if tpEnabled then
         ToggleBtn.Text = "TP: ON"
-        -- Keep Green Opaque but Background 0.5
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(40, 180, 70)
     else
         ToggleBtn.Text = "TP: OFF"
